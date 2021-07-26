@@ -1,0 +1,33 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+<div class="container">
+    <h1 class="mt-4 mb-4">Bienvenue dans votre espace utilisateur</h1>
+    <p>Veullez scanner le <b>QrCode</b> a l'aide de votre application <b>Google Authenticator</b> ou saisir <b>la clé secrete</b> afin de pouvoir recevoir vos codes de 2nd verification</p>
+   <hr/>
+        <p><b>GA secret:</b> {{ app.user.googleAuthenticatorSecret }}</p>
+
+<div class="card " style="width: 10;margin-left:auto;margin-right:auto">
+ {% if displayQrCodeGa %}
+        
+        <img class="card-img-top mt-4" src="{{ path("qr_code_ga") }}" style=" width: 150px;;margin-left:auto;margin-right:auto" alt="Card image cap">
+    {% endif %}
+  
+  <div class="card-body">
+    <h5 class="card-title">Vos Informations</h5>
+    <p class="card-text"><b>Email:</b> {{ app.user.email }}</p>
+    <h5 class="card-title">Codes de récupération</h5>
+    <p class="card-text"><b>Code 1:</b> {{ app.user.backup_code1 }}</p>
+    <p class="card-text"><b>Code 2:</b> {{ app.user.backup_code2 }}</p>
+    <p class="card-text"><b>Code 3:</b> {{ app.user.backup_code3 }}</p>
+    <p class="card-text"><b>Code 4:</b> {{ app.user.backup_code4 }}</p>
+    <p class="card-text"><b>Code 5:</b> {{ app.user.backup_code5 }}</p>
+    {% if (app.user.backup_code1 == null) or (app.user.backup_code2 == null) or (app.user.backup_code3 == null) or (app.user.backup_code4 == null) or (app.user.backup_code5 == null)   %}
+    <a href="{{ path("backup_codes") }}" class="btn btn-primary">Générer des nouveaux codes de récupération</a>
+    {% else %}
+    <a href="{{ path("backup_codes") }}" class="btn btn-primary disabled" >Générer des nouveaux codes de récupération</a>
+    {% endif %}
+  </div>
+</div>
+</div>
+{% endblock %}

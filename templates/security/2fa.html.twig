@@ -1,0 +1,11 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+<div class="container mt-4">
+    {% if (app.user.backup_code1 == 0 and app.user.backup_code1 is not null) and (app.user.two_fa_active == false) %}
+       <h6>Veuillez saisir "{{app.user.backup_code1}}" afin de pouvoir vous connecter pour la 1ere fois et activer la double authetification  </h6>
+    {% endif %}
+
+{% include "@SchebTwoFactor/Authentication/form.html.twig" %}
+</div>
+{% endblock %}
